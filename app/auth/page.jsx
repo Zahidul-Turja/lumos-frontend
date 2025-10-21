@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2, Lock, Mail } from "lucide-react";
+import { loginBasic } from "@/lib/auth";
 
 export default function Page() {
   const [loading, setLoading] = useState(false);
@@ -20,10 +21,9 @@ export default function Page() {
     e.preventDefault();
     setLoading(true);
 
-    setTimeout(() => {
+    loginBasic(form.email, form.password).finally(() => {
       setLoading(false);
-      alert(`Logged in as ${form.email}`);
-    }, 1500);
+    });
   };
 
   return (
