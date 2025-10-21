@@ -17,13 +17,19 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    loginBasic(form.email, form.password).finally(() => {
-      setLoading(false);
-    });
+    await loginBasic(form.email, form.password)
+      .then((res) => {
+        if (res) {
+          window.location.href = "/profile";
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
